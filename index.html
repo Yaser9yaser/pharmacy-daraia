@@ -212,7 +212,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💊 صيدليات المناوبة</h1>
+            <h1>🏥 صيدليات المناوبة</h1>
             <p class="subtitle">مدينة داريا</p>
             <div class="date" id="currentDate"></div>
         </div>
@@ -460,7 +460,7 @@
                 let html = '';
                 pharmacyData[key].forEach(pharmacy => {
                     html += `<div class="pharmacy-item">
-                        <div class="name">💊 ${pharmacy.name}</div>
+                        <div class="name">🏥 ${pharmacy.name}</div>
                         ${pharmacy.address ? `<div class="address">📍 ${pharmacy.address}</div>` : ''}
                         <div class="hours">⏰ من 10 مساءً حتى 1 بعد منتصف الليل</div>
                         <button class="share-btn" onclick="sharePharmacy('${pharmacy.name}', '${pharmacy.address || ''}')">📱 شارك</button>
@@ -508,7 +508,7 @@
                 let html = '';
                 found.forEach(item => {
                     html += `<div class="pharmacy-item">
-                        <div class="name">📅 ${item.date} — 💊 ${item.pharmacy.name}</div>
+                        <div class="name">📅 ${item.date} — 🏥 ${item.pharmacy.name}</div>
                         ${item.pharmacy.address ? `<div class="address">📍 ${item.pharmacy.address}</div>` : ''}
                         <button class="share-btn" onclick="sharePharmacy('${item.pharmacy.name}', '${item.pharmacy.address || ''}')">📱 شارك</button>
                     </div>`;
@@ -534,7 +534,7 @@
                 let html = '';
                 pharmacyData[date].forEach(pharmacy => {
                     html += `<div class="pharmacy-item">
-                        <div class="name">💊 ${pharmacy.name}</div>
+                        <div class="name">🏥 ${pharmacy.name}</div>
                         ${pharmacy.address ? `<div class="address">📍 ${pharmacy.address}</div>` : ''}
                         <div class="hours">⏰ من 10 مساءً حتى 1 بعد منتصف الليل</div>
                         <button class="share-btn" onclick="sharePharmacy('${pharmacy.name}', '${pharmacy.address || ''}')">📱 شارك</button>
@@ -551,7 +551,7 @@
         }
 
         async function sharePharmacy(name, address) {
-            const text = `💊 صيدلية ${name}\n📍 ${address}\n⏰ من 10 مساءً حتى 1 بعد منتصف الليل\n\nمنارة وطن\nصيدليات المناوبة - داريا\n🔗 https://pharmacy-daraia.vercel.app`;
+            const text = `🏥 صيدلية ${name}\n📍 ${address}\n⏰ من 10 مساءً حتى 1 بعد منتصف الليل\n\nمنارة وطن\nصيدليات المناوبة - داريا\n🔗 https://pharmacy-daraia.vercel.app`;
             
             if (navigator.share) {
                 try {
@@ -606,7 +606,7 @@
                     html += `<div class="schedule-day${isFri ? ' friday' : ''}">
                         <div class="date">${dayName} ${day}/4/2026${isFri ? ' <span class="friday-badge">الجمعة • 10 صيدليات</span>' : ''}</div>`;
                     pharmacyData[key].forEach(pharmacy => {
-                        html += `<div class="pharmacy">💊 ${pharmacy.name}${pharmacy.address ? `<br>📍 ${pharmacy.address}` : ''}</div>`;
+                        html += `<div class="pharmacy">🏥 ${pharmacy.name}${pharmacy.address ? `<br>📍 ${pharmacy.address}` : ''}</div>`;
                     });
                     html += `</div>`;
                 }
