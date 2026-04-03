@@ -4,197 +4,316 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصيدليات المناوبة - داريا</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- خط Cairo من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* ألوان Gemini المقترحة */
+            --primary-blue: #2D9CDB;
+            --mint-green: #27AE60;
+            --bg-light: #F8F9FA;
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+            --border-color: #E0E0E0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Tajawal', sans-serif;
-            background: #f8f9fa;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             min-height: 100vh;
             padding: 10px;
-            line-height: 1.6;
-            color: #1f2937;
+            line-height: 1.7;
         }
+
         .container {
             max-width: 500px;
             margin: 0 auto;
-            background: #ffffff;
+            background: var(--white);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 12px rgba(27,77,62,0.15);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
+
         .header {
-            background: linear-gradient(135deg, #1b4d3e 0%, #256b55 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
             padding: 22px 15px;
             text-align: center;
-            border-bottom: 3px solid #f4d06f;
+            border-bottom: 3px solid var(--mint-green);
         }
-        .header h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
-        .header .subtitle { font-size: 16px; opacity: 0.95; font-weight: 700; }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 700;
+        }
+
         .header .date {
-            background: #f4d06f;
-            color: #1b4d3e;
+            background: var(--mint-green);
+            color: var(--white);
             padding: 8px 18px;
             border-radius: 20px;
             display: inline-block;
             margin-top: 10px;
             font-size: 14px;
-            font-weight: 900;
+            font-weight: 700;
         }
+
         .visitor-count {
             text-align: center;
             margin-top: 10px;
             font-size: 13px;
-            color: white;
             opacity: 0.9;
         }
+
         .visitor-count span {
             font-weight: 900;
-            color: #f4d06f;
+            color: #FFD700;
         }
+
         .today-card {
-            background: linear-gradient(135deg, #f4d06f 0%, #f1c45d 100%);
-            color: #1b4d3e;
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            color: var(--text-main);
             padding: 18px;
             margin: 12px;
             border-radius: 10px;
-            border: 2px solid #1b4d3e;
+            border: 2px solid var(--mint-green);
         }
-        .today-card h2 { font-size: 20px; font-weight: 900; margin-bottom: 14px; text-align: center; }
+
+        .today-card h2 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            text-align: center;
+            color: var(--mint-green);
+        }
+
+        /* تصميم البطاقة العصري */
         .pharmacy-item {
-            background: white;
-            padding: 15px;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-right: 5px solid var(--primary-blue);
             border-radius: 8px;
-            margin-bottom: 11px;
-            border: 2px solid #1b4d3e;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .pharmacy-item .name { font-size: 19px; font-weight: 900; color: #1b4d3e; margin-bottom: 9px; }
-        .pharmacy-item .address { font-size: 15px; color: #374151; line-height: 1.7; margin-bottom: 9px; }
-        .pharmacy-item .hours { font-size: 13px; color: #1b4d3e; font-weight: 700; padding-top: 9px; border-top: 1px solid #e5e7eb; }
+
+        .pharmacy-item .name {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 9px;
+        }
+
+        .pharmacy-item .address {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 9px;
+        }
+
+        .pharmacy-item .hours {
+            font-size: 14px;
+            color: var(--mint-green);
+            font-weight: 700;
+            padding-top: 9px;
+            border-top: 1px solid var(--border-color);
+        }
+
         .share-today-btn {
-            background: linear-gradient(135deg, #1b4d3e 0%, #256b55 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
             border: none;
             padding: 13px 20px;
             border-radius: 8px;
             font-size: 15px;
             font-weight: 700;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             cursor: pointer;
             width: 100%;
             margin-top: 12px;
         }
+
         .share-today-btn:active { transform: scale(0.98); }
+
         .toggle-btn {
             width: calc(100% - 24px);
             margin: 0 12px 15px;
             padding: 14px;
-            background: linear-gradient(135deg, #f4d06f 0%, #f1c45d 100%);
-            color: #1b4d3e;
+            background: linear-gradient(135deg, var(--mint-green) 0%, #219653 100%);
+            color: var(--white);
             border: none;
             border-radius: 9px;
             font-size: 15px;
             font-weight: 700;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             cursor: pointer;
         }
+
         .toggle-btn:active { transform: scale(0.98); }
+
         .full-features { display: none; }
         .full-features.active { display: block; }
+
         .search-section { padding: 0 15px 15px; }
+
         .search-box {
-            background: #f1f5f9;
+            background: #F5F7FA;
             padding: 15px;
             border-radius: 9px;
             margin-bottom: 11px;
-            border: 2px solid #cbd5e1;
+            border: 2px solid var(--border-color);
         }
-        .search-box label { font-size: 15px; font-weight: 700; color: #1b4d3e; margin-bottom: 9px; display: block; }
+
+        .search-box label {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 9px;
+            display: block;
+        }
+
         .search-box input, .search-box select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #1b4d3e;
+            border: 2px solid var(--primary-blue);
             border-radius: 7px;
             font-size: 15px;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             margin-bottom: 9px;
-            background: white;
+            background: var(--white);
         }
+
         .search-box input:focus, .search-box select:focus {
             outline: none;
-            border-color: #f4d06f;
-            box-shadow: 0 0 0 3px rgba(244,208,111,0.3);
+            border-color: var(--mint-green);
+            box-shadow: 0 0 0 3px rgba(45,156,219,0.2);
         }
+
         .search-btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #1b4d3e 0%, #256b55 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
             border: none;
             border-radius: 7px;
             font-size: 15px;
             font-weight: 700;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
             cursor: pointer;
         }
+
         .results { padding: 0 15px 15px; display: none; }
         .results.active { display: block; }
-        .results h3 { font-size: 17px; color: #1b4d3e; margin-bottom: 11px; padding-bottom: 7px; border-bottom: 2px solid #f4d06f; }
+
+        .results h3 {
+            font-size: 17px;
+            color: var(--primary-blue);
+            margin-bottom: 11px;
+            padding-bottom: 7px;
+            border-bottom: 2px solid var(--mint-green);
+        }
+
         .schedule-section { padding: 0 15px 22px; }
         .schedule-list { display: none; }
         .schedule-list.active { display: block; }
+
         .schedule-day {
-            background: #f1f5f9;
+            background: #F5F7FA;
             padding: 11px;
             border-radius: 7px;
             margin-bottom: 7px;
-            border-right: 4px solid #1b4d3e;
+            border-right: 4px solid var(--primary-blue);
         }
+
         .schedule-day.friday {
-            background: #fef3c7;
-            border-right-color: #f4d06f;
+            background: #FFF3E0;
+            border-right-color: var(--mint-green);
         }
-        .schedule-day .date { font-size: 15px; font-weight: 700; color: #1b4d3e; margin-bottom: 7px; }
-        .schedule-day .pharmacy { font-size: 13px; color: #374151; padding: 5px 0; border-bottom: 1px solid #e2e8f0; }
+
+        .schedule-day .date {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 7px;
+        }
+
+        .schedule-day .pharmacy {
+            font-size: 13px;
+            color: var(--text-light);
+            padding: 5px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
         .friday-badge {
-            background: #f4d06f;
-            color: #1b4d3e;
+            background: var(--mint-green);
+            color: var(--white);
             padding: 2px 8px;
             border-radius: 12px;
             font-size: 12px;
             font-weight: 700;
             margin-left: 6px;
         }
+
         .friday-note {
-            background: #fef3c7;
-            border: 1px solid #f4d06f;
+            background: #FFF3E0;
+            border: 1px solid #FFB74D;
             border-radius: 8px;
             padding: 10px 15px;
             margin: 10px 12px;
             font-size: 13px;
-            color: #1b4d3e;
+            color: var(--text-main);
             text-align: center;
             display: block;
             cursor: pointer;
         }
+
         .friday-note a {
-            color: #1b4d3e;
+            color: var(--primary-blue);
             font-weight: 700;
             text-decoration: none;
-            border-bottom: 1px dashed #1b4d3e;
+            border-bottom: 1px dashed var(--primary-blue);
         }
+
         .footer {
-            background: linear-gradient(135deg, #1b4d3e 0%, #256b55 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
             text-align: center;
             padding: 18px 15px;
             font-size: 13px;
-            border-top: 3px solid #f4d06f;
+            border-top: 3px solid var(--mint-green);
         }
-        .footer .tribute { font-size: 12px; opacity: 0.95; margin: 4px 0; }
-        .footer .by { font-size: 11px; opacity: 0.8; margin: 8px 0; font-style: italic; }
-        .footer .note { font-size: 12px; opacity: 0.9; margin: 7px 0; }
+
+        .footer .tribute {
+            font-size: 12px;
+            opacity: 0.95;
+            margin: 4px 0;
+        }
+
+        .footer .by {
+            font-size: 11px;
+            opacity: 0.8;
+            margin: 8px 0;
+            font-style: italic;
+        }
+
+        .footer .note {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 7px 0;
+        }
+
         .footer-btn {
             display: inline-block;
             margin: 8px 5px;
@@ -203,24 +322,43 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 13px;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
+
         .footer-whatsapp {
             background: #25D366;
-            color: white;
+            color: var(--white);
         }
+
         .footer-share {
-            background: #f4d06f;
-            color: #1b4d3e;
+            background: var(--mint-green);
+            color: var(--white);
         }
-        .no-results { text-align: center; padding: 28px 15px; color: #64748b; }
-        .no-results p { font-size: 15px; font-weight: 700; }
-        .loading { text-align: center; padding: 28px; color: #1b4d3e; font-size: 15px; font-weight: 700; }
+
+        .no-results {
+            text-align: center;
+            padding: 28px 15px;
+            color: var(--text-light);
+        }
+
+        .no-results p {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 28px;
+            color: var(--primary-blue);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
         @media (max-width: 400px) {
             .header h1 { font-size: 20px; }
             .today-card h2 { font-size: 18px; }
-            .pharmacy-item .name { font-size: 17px; }
-            .pharmacy-item .address { font-size: 13px; }
+            .pharmacy-item .name { font-size: 18px; }
+            .pharmacy-item .address { font-size: 15px; }
         }
     </style>
 </head>
@@ -280,7 +418,7 @@
             <a href="https://wa.me/963994383846" target="_blank" class="footer-btn footer-whatsapp">
                 📞 ملاحظة أو تعديل؟ تواصل معنا
             </a>
-            <a href="#" class="footer-btn footer-share" onclick="shareSite(); return false;">
+            <a href="javascript:shareSite()" class="footer-btn footer-share">
                 🌐 شارك الموقع
             </a>
         </div>
@@ -458,14 +596,19 @@
             return now;
         }
 
-        // 📊 عداد الزوار
+        // 📊 عداد الزوار العام (CountAPI)
         function updateVisitorCount() {
-            const today = new Date().toDateString();
-            let count = localStorage.getItem('visitorCount_' + today);
-            if (!count) count = 0;
-            count = parseInt(count) + 1;
-            localStorage.setItem('visitorCount_' + today, count);
-            document.getElementById('visitorCount').textContent = count;
+            const namespace = 'pharmacy-daraia-yaser';
+            const key = 'visits';
+            
+            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('visitorCount').textContent = data.value;
+                })
+                .catch(err => {
+                    document.getElementById('visitorCount').textContent = '---';
+                });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -658,7 +801,6 @@
             if (!scheduleList.classList.contains('active')) {
                 scheduleList.classList.add('active');
             }
-            // Scroll to Friday dates
             const fridayElements = document.querySelectorAll('.schedule-day.friday');
             if (fridayElements[0]) {
                 fridayElements[0].scrollIntoView({behavior: 'smooth', block: 'center'});
