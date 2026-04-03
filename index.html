@@ -596,9 +596,9 @@
             return now;
         }
 
-        // 📊 عداد الزوار العام (CountAPI)
+        // 📊 عداد الزوار العام (نسخة محسنة 2026)
         function updateVisitorCount() {
-            const namespace = 'pharmacy-daraia-yaser';
+            const namespace = 'pharmacy-daraia-yaser-new-2026';
             const key = 'visits';
             
             fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
@@ -607,7 +607,8 @@
                     document.getElementById('visitorCount').textContent = data.value;
                 })
                 .catch(err => {
-                    document.getElementById('visitorCount').textContent = '---';
+                    document.getElementById('visitorCount').textContent = '1+';
+                    console.log('Counter error:', err);
                 });
         }
 
@@ -728,7 +729,7 @@
             resultsDiv.scrollIntoView({behavior: 'smooth'});
         }
 
-        // 📱 مشاركة مناوبة اليوم (كل الصيدليات معاً)
+        // 📱 مشاركة مناوبة اليوم (كل الصيدليات معاً) - نسخة مصححة
         async function shareTodayDuty() {
             const effectiveDate = getEffectiveDate();
             const day = String(effectiveDate.getDate()).padStart(2, '0');
@@ -746,13 +747,15 @@
                     text += `⏰ من 10 مساءً حتى 1 بعد منتصف الليل\n\n`;
                 });
             }
-            text += `الصيدليات المناوبة - داريا\n🔗 ${window.location.href}`;
+            // نضيف الرابط فقط لواتساب، وليس للمشاركة الأصلية
+            const textWithLink = text + `الصيدليات المناوبة - داريا`;
+            const textWithLinkAndUrl = textWithLink + `\n🔗 ${window.location.href}`;
             
             if (navigator.share) {
                 try {
                     await navigator.share({
                         title: 'الصيدليات المناوبة - داريا',
-                        text: text,
+                        text: textWithLink,
                         url: window.location.href
                     });
                     return;
@@ -760,24 +763,34 @@
                     if (err.name !== 'AbortError') console.log('Share cancelled');
                 }
             }
-            const whatsappText = encodeURIComponent(text);
+            // لواتساب: نستخدم النص مع الرابط مضافاً يدوياً
+            const whatsappText = encodeURIComponent(textWithLinkAndUrl);
             window.open(`https://wa.me/?text=${whatsappText}`, '_blank');
         }
 
-        // 🌐 مشاركة الموقع كامل
+        // 🌐 مشاركة الموقع كامل - نسخة مصححة
         async function shareSite() {
-            const text = `الصيدليات المناوبة - مدينة داريا\nاعرف صيدلية المناوبة فوراً - تحديث يومي\n🔗 ${window.location.href}`;
+            const baseText = `الصيدليات المناوبة - مدينة داريا\nاعرف صيدلية المناوبة فوراً - تحديث يومي`;
+            const textWithLink = baseText + `\n🔗 ${window.location.href}`;
             
             if (navigator.share) {
-                navigator.share({
-                    title: 'الصيدليات المناوبة - داريا',
-                    text: text,
-                    url: window.location.href
-                }).catch(() => {});
-            } else {
-                const whatsappText = encodeURIComponent(text);
-                window.open(`https://wa.me/?text=${whatsappText}`, '_blank');
+                try {
+                    await navigator.share({
+                        title: 'الصيدليات المناوبة - داريا',
+                        text: baseText,
+                        url: window.location.href
+                    });
+                    return;
+                } catch (err) {
+                    if (err.name === 'AbortError') {
+                        console.log('User cancelled share');
+                        return;
+                    }
+                }
             }
+            // لواتساب
+            const whatsappText = encodeURIComponent(textWithLink);
+            window.open(`https://wa.me/?text=${whatsappText}`, '_blank');
         }
 
         function toggleFullFeatures() {
