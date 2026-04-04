@@ -1,4 +1,842 @@
-<!DOCTYPE html>
+<!DOCTYPE<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصيدليات المناوبة - داريا</title>
+    
+    <!-- ✅ Open Graph Meta Tags للمعاينة -->
+    <meta property="og:title" content="الصيدليات المناوبة - داريا">
+    <meta property="og:description" content="اعرف صيدلية المناوبة فوراً في مدينة داريا - تحديث يومي">
+    <meta property="og:image" content="https://pharmacy-daraia.vercel.app/pharmacy-preview.png">
+    <meta property="og:url" content="https://pharmacy-daraia.vercel.app">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="الصيدليات المناوبة - داريا">
+    <meta name="twitter:description" content="اعرف صيدلية المناوبة فوراً في مدينة داريا">
+    <meta name="twitter:image" content="https://pharmacy-daraia.vercel.app/pharmacy-preview.png">
+    
+    <!-- خط Cairo من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2D9CDB;
+            --mint-green: #27AE60;
+            --bg-light: #F8F9FA;
+            --text-main: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+            --border-color: #E0E0E0;
+            --gold: #FFD700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 10px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
+            padding: 22px 15px;
+            text-align: center;
+            border-bottom: 3px solid var(--mint-green);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 700;
+        }
+
+        .header .date {
+            background: var(--mint-green);
+            color: var(--white);
+            padding: 8px 18px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .today-card {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            color: var(--text-main);
+            padding: 18px;
+            margin: 12px;
+            border-radius: 10px;
+            border: 2px solid var(--mint-green);
+        }
+
+        .today-card h2 {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            text-align: center;
+            color: var(--mint-green);
+        }
+
+        .pharmacy-item {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-right: 5px solid var(--primary-blue);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .pharmacy-item .name {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-blue);
+            margin-bottom: 9px;
+        }
+
+        .pharmacy-item .address {
+            font-size: 16px;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 9px;
+        }
+
+        .pharmacy-item .hours {
+            font-size: 14px;
+            color: var(--mint-green);
+            font-weight: 700;
+            padding-top: 9px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .share-today-btn {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
+            border: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .share-today-btn:active { transform: scale(0.98); }
+
+        .toggle-btn {
+            width: calc(100% - 24px);
+            margin: 0 12px 15px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--mint-green) 0%, #219653 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+        }
+
+        .toggle-btn:active { transform: scale(0.98); }
+
+        .full-features { display: none; }
+        .full-features.active { display: block; }
+
+        .search-section { padding: 0 15px 15px; }
+
+        .search-box {
+            background: #F5F7FA;
+            padding: 15px;
+            border-radius: 9px;
+            margin-bottom: 11px;
+            border: 2px solid var(--border-color);
+        }
+
+        .search-box label {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 9px;
+            display: block;
+        }
+
+        .search-box input, .search-box select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 7px;
+            font-size: 15px;
+            font-family: 'Cairo', sans-serif;
+            margin-bottom: 9px;
+            background: var(--white);
+        }
+
+        .search-box input:focus, .search-box select:focus {
+            outline: none;
+            border-color: var(--mint-green);
+            box-shadow: 0 0 0 3px rgba(45,156,219,0.2);
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+        }
+
+        .results { padding: 0 15px 15px; display: none; }
+        .results.active { display: block; }
+
+        .results h3 {
+            font-size: 17px;
+            color: var(--primary-blue);
+            margin-bottom: 11px;
+            padding-bottom: 7px;
+            border-bottom: 2px solid var(--mint-green);
+        }
+
+        .schedule-section { padding: 0 15px 22px; }
+        .schedule-list { display: none; }
+        .schedule-list.active { display: block; }
+
+        .schedule-day {
+            background: #F5F7FA;
+            padding: 11px;
+            border-radius: 7px;
+            margin-bottom: 7px;
+            border-right: 4px solid var(--primary-blue);
+        }
+
+        .schedule-day.friday {
+            background: #FFF3E0;
+            border-right-color: var(--mint-green);
+        }
+
+        .schedule-day .date {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 7px;
+        }
+
+        .schedule-day .pharmacy {
+            font-size: 13px;
+            color: var(--text-light);
+            padding: 5px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .friday-badge {
+            background: var(--mint-green);
+            color: var(--white);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .friday-note {
+            background: #FFF3E0;
+            border: 1px solid #FFB74D;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 10px 12px;
+            font-size: 13px;
+            color: var(--text-main);
+            text-align: center;
+            display: block;
+            cursor: pointer;
+        }
+
+        .friday-note a {
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px dashed var(--primary-blue);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a7fb8 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 18px 15px;
+            font-size: 13px;
+            border-top: 3px solid var(--mint-green);
+        }
+
+        .footer .tribute {
+            font-size: 12px;
+            opacity: 0.95;
+            margin: 4px 0;
+        }
+
+        .footer .by {
+            font-size: 13px;
+            font-weight: 900;
+            color: var(--gold);
+            margin: 10px 0;
+            font-style: normal;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .footer .note {
+            font-size: 12px;
+            opacity: 0.9;
+            margin: 7px 0;
+        }
+
+        .footer-btn {
+            display: inline-block;
+            margin: 8px 5px;
+            padding: 10px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .footer-whatsapp {
+            background: #25D366;
+            color: var(--white);
+        }
+
+        .footer-share {
+            background: var(--mint-green);
+            color: var(--white);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 28px 15px;
+            color: var(--text-light);
+        }
+
+        .no-results p {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 28px;
+            color: var(--primary-blue);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .today-hours {
+            text-align: center;
+            padding: 12px;
+            background: #FFF3E0;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--mint-green);
+            border: 2px dashed var(--mint-green);
+        }
+
+        @media (max-width: 400px) {
+            .header h1 { font-size: 20px; }
+            .today-card h2 { font-size: 18px; }
+            .pharmacy-item .name { font-size: 18px; }
+            .pharmacy-item .address { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💊 الصيدليات المناوبة</h1>
+            <p class="subtitle">مدينة داريا</p>
+            <div class="date" id="currentDate"></div>
+        </div>
+
+        <div class="today-card">
+            <h2>🗓️ مناوبة اليوم</h2>
+            <div id="todayPharmacies"><div class="loading">جاري التحميل...</div></div>
+            <button class="share-today-btn" onclick="shareTodayDuty()">📱 شارك مناوبة اليوم</button>
+        </div>
+
+        <div class="friday-note" onclick="showFridayPharmacies()">
+            🕌 أيام الجمعة: 10 صيدليات مناوبة — اضغط للعرض
+        </div>
+
+        <button class="toggle-btn" onclick="toggleFullFeatures()">📋 عرض البحث والجدول الكامل</button>
+
+        <div class="full-features" id="fullFeatures">
+            <div class="search-section">
+                <div class="search-box">
+                    <label>🔍 ابحث باسم الصيدلية أو العنوان:</label>
+                    <input type="text" id="pharmacySearch" placeholder="اكتب اسم الصيدلية أو العنوان...">
+                    <button class="search-btn" onclick="searchByPharmacy()">بحث</button>
+                </div>
+                <div class="search-box">
+                    <label>📅 ابحث بالتاريخ:</label>
+                    <select id="dateSearch"><option value="">اختر التاريخ...</option></select>
+                    <button class="search-btn" onclick="searchByDate()">بحث</button>
+                </div>
+            </div>
+
+            <div class="results" id="searchResults">
+                <h3 id="resultsTitle">نتائج البحث</h3>
+                <div id="resultsContent"></div>
+            </div>
+
+            <div class="schedule-section">
+                <button class="search-btn" onclick="toggleSchedule()">📋 عرض جدول الشهر كاملاً</button>
+                <div class="schedule-list" id="scheduleList"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="tribute">🕊️ إهداءً لأرواح شهداء مدينة داريا</p>
+            <p class="tribute">جهد متواضع لخدمة أهلنا</p>
+            <p class="by">Yaser Jamal Al-Deen</p>
+            <p class="note">📅 يتم التحديث شهرياً</p>
+            <a href="https://wa.me/963994383846" target="_blank" class="footer-btn footer-whatsapp">
+                📞 ملاحظة أو تعديل؟ تواصل معنا
+            </a>
+            <a href="javascript:shareSite()" class="footer-btn footer-share">
+                🌐 شارك الموقع
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const pharmacyData = {
+            "01/04": [
+                {name: "روضة عبود", address: "غربي شارع الوحدة مقابل طاحونة حنا"},
+                {name: "فايز كحلوس", address: "مقابل المخفر"}
+            ],
+            "02/04": [
+                {name: "علي الأحمر", address: "قبل جامع العباس من جهة شارع الثورة"},
+                {name: "هنادي محمد", address: "مقابل محلات الوزير"}
+            ],
+            "03/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "دعاء", address: "أول طريق المعضمية"},
+                {name: "داريا النموذجية", address: "مقابل الثانوية الشرعية"},
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "هلا الحوراني", address: ""},
+                {name: "إسراء سيلة", address: ""},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"},
+                {name: "سهام كساح", address: "بداية شارع الشهداء الكورنيش سابقاً"},
+                {name: "الشربجي", address: "ساحة شريدي"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "04/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "الرضوان", address: "قرب الباب القبلي لجامع طه"}
+            ],
+            "05/04": [{name: "تناوب جميع الصيدليات", address: "عدا التي تفتح يوم الجمعة"}],
+            "06/04": [
+                {name: "وعد أبو بكر", address: "آخر شارع الثورة مقابل الكنيسة"},
+                {name: "خلود العزب", address: "شارع المعضمية بناء العزب"}
+            ],
+            "07/04": [
+                {name: "محمود خولاني", address: "امتداد شارع الثانوية الشرعية ساحة الأوقاف"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "08/04": [
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"}
+            ],
+            "09/04": [
+                {name: "محمد تيسير معاني", address: "عند تقاطع شارع الثورة مع شارع الوحدة"},
+                {name: "سيف الدين حافظ", address: "شارع الشهداء خلف مشفى الرضوان"}
+            ],
+            "10/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "دعاء", address: "أول طريق المعضمية"},
+                {name: "داريا النموذجية", address: "مقابل الثانوية الشرعية"},
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "هلا الحوراني", address: ""},
+                {name: "إسراء سيلة", address: ""},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"},
+                {name: "سهام كساح", address: "بداية شارع الشهداء الكورنيش سابقاً"},
+                {name: "الشربجي", address: "ساحة شريدي"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "11/04": [
+                {name: "الأيوبي", address: "شارع الثورة مقابل الطابو"},
+                {name: "هند زرقة", address: "شارع الوحدة قرب جامع المصطفى"}
+            ],
+            "12/04": [{name: "تناوب جميع الصيدليات", address: "عدا التي تفتح يوم الجمعة"}],
+            "13/04": [
+                {name: "غسان عزيزية", address: "قرب ماركت البيان"},
+                {name: "خالد أبو حلمي", address: "شارع الشهداء مقابل مغسل الخولاني"}
+            ],
+            "14/04": [
+                {name: "عدنان نجبية", address: "الشاميات بناء المغربي"},
+                {name: "روضة عبود", address: "غربي شارع الوحدة مقابل طاحونة حنا"}
+            ],
+            "15/04": [
+                {name: "فايز كحلوس", address: "مقابل المخفر"},
+                {name: "علي الأحمر", address: "قبل جامع العباس من جهة شارع الثورة"}
+            ],
+            "16/04": [
+                {name: "هنادي محمد", address: "مقابل محلات الوزير"},
+                {name: "وعد أبو بكر", address: "آخر شارع الثورة مقابل الكنيسة"}
+            ],
+            "17/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "دعاء", address: "أول طريق المعضمية"},
+                {name: "داريا النموذجية", address: "مقابل الثانوية الشرعية"},
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "هلا الحوراني", address: ""},
+                {name: "إسراء سيلة", address: ""},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"},
+                {name: "سهام كساح", address: "بداية شارع الشهداء الكورنيش سابقاً"},
+                {name: "الشربجي", address: "ساحة شريدي"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "18/04": [
+                {name: "خلود العزب", address: "شارع المعضمية بناء العزب"},
+                {name: "محمود خولاني", address: "امتداد شارع الثانوية الشرعية ساحة الأوقاف"}
+            ],
+            "19/04": [{name: "تناوب جميع الصيدليات", address: "عدا التي تفتح يوم الجمعة"}],
+            "20/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "الرضوان", address: "قرب الباب القبلي لجامع طه"}
+            ],
+            "21/04": [
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"}
+            ],
+            "22/04": [
+                {name: "هند زرقة", address: "شارع الوحدة قرب جامع المصطفى"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "23/04": [
+                {name: "محمد تيسير معاني", address: "عند تقاطع شارع الثورة مع شارع الوحدة"},
+                {name: "عدنان نجبية", address: "الشاميات بناء المغربي"}
+            ],
+            "24/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "دعاء", address: "أول طريق المعضمية"},
+                {name: "داريا النموذجية", address: "مقابل الثانوية الشرعية"},
+                {name: "محمد السعدي", address: "موقف النكاشات"},
+                {name: "هلا الحوراني", address: ""},
+                {name: "إسراء سيلة", address: ""},
+                {name: "باري أبو زيدان", address: "مقابل المستوصف"},
+                {name: "سهام كساح", address: "بداية شارع الشهداء الكورنيش سابقاً"},
+                {name: "الشربجي", address: "ساحة شريدي"},
+                {name: "محمود المنيع", address: "مقابل المركز الثقافي"}
+            ],
+            "25/04": [
+                {name: "سيف الدين حافظ", address: "شارع الشهداء خلف مشفى الرضوان"},
+                {name: "الأيوبي", address: "شارع الثورة مقابل الطابو"}
+            ],
+            "26/04": [{name: "تناوب جميع الصيدليات", address: "عدا التي تفتح يوم الجمعة"}],
+            "27/04": [
+                {name: "غسان عزيزية", address: "قرب ماركت البيان"},
+                {name: "خالد أبو حلمي", address: "شارع الشهداء مقابل مغسل الخولاني"}
+            ],
+            "28/04": [
+                {name: "روضة عبود", address: "غربي شارع الوحدة مقابل طاحونة حنا"},
+                {name: "فايز كحلوس", address: "مقابل المخفر"}
+            ],
+            "29/04": [
+                {name: "علي الأحمر", address: "قبل جامع العباس من جهة شارع الثورة"},
+                {name: "هنادي محمد", address: "مقابل محلات الوزير"}
+            ],
+            "30/04": [
+                {name: "فراس", address: "شارع الثورة مقابل محمصة داريا"},
+                {name: "الرضوان", address: "قرب الباب القبلي لجامع طه"}
+            ]
+        };
+
+        const monthNames = ["كانون الثاني", "شباط", "آذار", "نيسان", "أيار", "حزيران", "تموز", "آب", "أيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول"];
+        const dayNames = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+
+        function normalizeText(text) {
+            if (!text) return '';
+            return text.toLowerCase()
+                .replace(/[أإآ]/g, 'ا').replace(/ء/g, '').replace(/ؤ/g, 'و').replace(/ئ/g, 'ي')
+                .replace(/ة/g, 'ه').replace(/ى/g, 'ي').replace(/ال/g, 'ل')
+                .replace(/[ًٌٍّ]/g, '').replace(/\s+/g, ' ').trim();
+        }
+
+        function isFriday(dateStr) {
+            const [day, month] = dateStr.split('/').map(Number);
+            const date = new Date(2026, month - 1, day);
+            return date.getDay() === 5;
+        }
+
+        function getEffectiveDate() {
+            const now = new Date();
+            const hour = now.getHours();
+            if (hour < 2) {
+                const yesterday = new Date(now);
+                yesterday.setDate(now.getDate() - 1);
+                return yesterday;
+            }
+            return now;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setCurrentDate();
+            showTodayDuty();
+            populateDateSelect();
+            renderFullSchedule();
+        });
+
+        function setCurrentDate() {
+            const effectiveDate = getEffectiveDate();
+            const dateStr = `${dayNames[effectiveDate.getDay()]} ${effectiveDate.getDate()} ${monthNames[effectiveDate.getMonth()]} ${effectiveDate.getFullYear()}`;
+            document.getElementById('currentDate').textContent = `🗓️ ${dateStr}`;
+        }
+
+        function showTodayDuty() {
+            const effectiveDate = getEffectiveDate();
+            const day = String(effectiveDate.getDate()).padStart(2, '0');
+            const month = String(effectiveDate.getMonth() + 1).padStart(2, '0');
+            const key = `${day}/${month}`;
+            const container = document.getElementById('todayPharmacies');
+            
+            if (effectiveDate.getMonth() !== 3 || effectiveDate.getFullYear() !== 2026) {
+                container.innerHTML = `<div class="no-results"><p>البيانات المتاحة لشهر نيسان 2026 فقط</p></div>`;
+                return;
+            }
+
+            if (pharmacyData[key]) {
+                let html = '';
+                pharmacyData[key].forEach(pharmacy => {
+                    html += `<div class="pharmacy-item">
+                        <div class="name">💊 ${pharmacy.name}</div>
+                        ${pharmacy.address ? `<div class="address">📍 ${pharmacy.address}</div>` : ''}
+                    </div>`;
+                });
+                // التوقيت يظهر مرة واحدة بعد كل الصيدليات
+                html += `<div class="today-hours">⏰ من 10 مساءً حتى 1 بعد منتصف الليل</div>`;
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `<div class="no-results"><p>لا توجد مناوبات مسجلة لهذا اليوم</p></div>`;
+            }
+        }
+
+        function populateDateSelect() {
+            const select = document.getElementById('dateSearch');
+            for (let day = 1; day <= 30; day++) {
+                const date = new Date(2026, 3, day);
+                const dayName = dayNames[date.getDay()];
+                const key = `${String(day).padStart(2, '0')}/04`;
+                const option = document.createElement('option');
+                option.value = key;
+                const fridayText = isFriday(key) ? 'الجمعة • 10 صيدليات | ' : '';
+                option.textContent = `${fridayText}${dayName} ${day}/4/2026`;
+                select.appendChild(option);
+            }
+        }
+
+        function searchByPharmacy() {
+            const query = document.getElementById('pharmacySearch').value.trim();
+            const resultsDiv = document.getElementById('searchResults');
+            const resultsContent = document.getElementById('resultsContent');
+            const resultsTitle = document.getElementById('resultsTitle');
+            if (!query) { alert('يرجى كتابة اسم الصيدلية أو العنوان'); return; }
+            const normalizedQuery = normalizeText(query);
+            let found = [];
+            for (const [date, pharmacies] of Object.entries(pharmacyData)) {
+                pharmacies.forEach(pharmacy => {
+                    const normalizedName = normalizeText(pharmacy.name);
+                    const normalizedAddress = normalizeText(pharmacy.address);
+                    if (normalizedName.includes(normalizedQuery) || normalizedAddress.includes(normalizedQuery)) {
+                        found.push({date, pharmacy});
+                    }
+                });
+            }
+            if (found.length > 0) {
+                resultsTitle.textContent = `نتائج البحث عن "${query}"`;
+                let html = '';
+                found.forEach(item => {
+                    html += `<div class="pharmacy-item">
+                        <div class="name">📅 ${item.date} — 💊 ${item.pharmacy.name}</div>
+                        ${item.pharmacy.address ? `<div class="address">📍 ${item.pharmacy.address}</div>` : ''}
+                    </div>`;
+                });
+                resultsContent.innerHTML = html;
+                resultsDiv.classList.add('active');
+            } else {
+                resultsTitle.textContent = `لا نتائج لـ "${query}"`;
+                resultsContent.innerHTML = `<div class="no-results"><p>لم يتم العثور على صيدلية بهذا الاسم أو العنوان</p></div>`;
+                resultsDiv.classList.add('active');
+            }
+            resultsDiv.scrollIntoView({behavior: 'smooth'});
+        }
+
+        function searchByDate() {
+            const date = document.getElementById('dateSearch').value;
+            const resultsDiv = document.getElementById('searchResults');
+            const resultsContent = document.getElementById('resultsContent');
+            const resultsTitle = document.getElementById('resultsTitle');
+            if (!date) { alert('يرجى اختيار التاريخ'); return; }
+            if (pharmacyData[date]) {
+                resultsTitle.textContent = `مناوبات تاريخ ${date}`;
+                let html = '';
+                pharmacyData[date].forEach(pharmacy => {
+                    html += `<div class="pharmacy-item">
+                        <div class="name">💊 ${pharmacy.name}</div>
+                        ${pharmacy.address ? `<div class="address">📍 ${pharmacy.address}</div>` : ''}
+                    </div>`;
+                });
+                resultsContent.innerHTML = html;
+                resultsDiv.classList.add('active');
+            } else {
+                resultsTitle.textContent = `لا توجد مناوبات بتاريخ ${date}`;
+                resultsContent.innerHTML = `<div class="no-results"><p>لا توجد مناوبات مسجلة لهذا اليوم</p></div>`;
+                resultsDiv.classList.add('active');
+            }
+            resultsDiv.scrollIntoView({behavior: 'smooth'});
+        }
+
+        // 📱 مشاركة مناوبة اليوم - نسخة مصححة
+        async function shareTodayDuty() {
+            const effectiveDate = getEffectiveDate();
+            const day = String(effectiveDate.getDate()).padStart(2, '0');
+            const month = String(effectiveDate.getMonth() + 1).padStart(2, '0');
+            const key = `${day}/${month}`;
+            const dayName = dayNames[effectiveDate.getDay()];
+            const dateStr = `${dayName} ${effectiveDate.getDate()} ${monthNames[effectiveDate.getMonth()]}`;
+            
+            // التاريخ مرة واحدة فقط في البداية
+            let text = `🗓️ ${dateStr}\n📍 مدينة داريا\n\n`;
+            
+            if (pharmacyData[key]) {
+                pharmacyData[key].forEach((p, i) => {
+                    // اسم الصيدلية بخط عريض (للواتساب)
+                    text += `${i+1}️⃣ *${p.name}*\n`;
+                    if (p.address) text += `📍 ${p.address}\n`;
+                    text += `\n`;
+                });
+            }
+            // التوقيت مرة واحدة في النهاية
+            text += `⏰ من 10 مساءً حتى 1 بعد منتصف الليل\n\n`;
+            text += `🔗 ${window.location.href}`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'الصيدليات المناوبة - داريا',
+                        text: text,
+                        url: window.location.href
+                    });
+                    return;
+                } catch (err) {
+                    if (err.name !== 'AbortError') console.log('Share cancelled');
+                }
+            }
+            const whatsappText = encodeURIComponent(text);
+            window.open(`https://wa.me/?text=${whatsappText}`, '_blank');
+        }
+
+        // 🌐 مشاركة الموقع كامل
+        async function shareSite() {
+            const text = `اعرف صيدلية المناوبة فوراً - تحديث يومي\n🔗 ${window.location.href}`;
+            
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'الصيدليات المناوبة - داريا',
+                        text: text,
+                        url: window.location.href
+                    });
+                    return;
+                } catch (err) {
+                    if (err.name === 'AbortError') {
+                        console.log('User cancelled share');
+                        return;
+                    }
+                }
+            }
+            const whatsappText = encodeURIComponent(text);
+            window.open(`https://wa.me/?text=${whatsappText}`, '_blank');
+        }
+
+        function toggleFullFeatures() {
+            const features = document.getElementById('fullFeatures');
+            features.classList.toggle('active');
+            features.scrollIntoView({behavior: 'smooth'});
+        }
+
+        function toggleSchedule() {
+            const scheduleList = document.getElementById('scheduleList');
+            scheduleList.classList.toggle('active');
+            scheduleList.scrollIntoView({behavior: 'smooth'});
+        }
+
+        function showFridayPharmacies() {
+            const features = document.getElementById('fullFeatures');
+            if (!features.classList.contains('active')) {
+                features.classList.add('active');
+            }
+            const scheduleList = document.getElementById('scheduleList');
+            if (!scheduleList.classList.contains('active')) {
+                scheduleList.classList.add('active');
+            }
+            const fridayElements = document.querySelectorAll('.schedule-day.friday');
+            if (fridayElements[0]) {
+                fridayElements[0].scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
+        }
+
+        function renderFullSchedule() {
+            const container = document.getElementById('scheduleList');
+            let html = '';
+            for (let day = 1; day <= 30; day++) {
+                const date = new Date(2026, 3, day);
+                const dayName = dayNames[date.getDay()];
+                const key = `${String(day).padStart(2, '0')}/04`;
+                if (pharmacyData[key]) {
+                    const isFri = isFriday(key);
+                    html += `<div class="schedule-day${isFri ? ' friday' : ''}">
+                        <div class="date">${dayName} ${day}/4/2026${isFri ? ' <span class="friday-badge">الجمعة • 10 صيدليات</span>' : ''}</div>`;
+                    pharmacyData[key].forEach(pharmacy => {
+                        html += `<div class="pharmacy">💊 ${pharmacy.name}${pharmacy.address ? `<br>📍 ${pharmacy.address}` : ''}</div>`;
+                    });
+                    html += `</div>`;
+                }
+            }
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html> html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
