@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الصيدليات المناوبة - داريا</title>
+    
+    <!-- ✅ Open Graph Meta Tags للمعاينة -->
+    <meta property="og:title" content="الصيدليات المناوبة - داريا">
+    <meta property="og:description" content="اعرف صيدلية المناوبة فوراً في مدينة داريا - تحديث يومي">
+    <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/2936/2936886.png">
+    <meta property="og:url" content="https://pharmacy-daraia.vercel.app">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="الصيدليات المناوبة - داريا">
+    <meta name="twitter:description" content="اعرف صيدلية المناوبة فوراً في مدينة داريا">
+    <meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/2936/2936886.png">
+    
     <!-- خط Cairo من جوجل -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
@@ -67,18 +82,6 @@
             margin-top: 10px;
             font-size: 14px;
             font-weight: 700;
-        }
-
-        .visitor-count {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .visitor-count span {
-            font-weight: 900;
-            color: #FFD700;
         }
 
         .today-card {
@@ -368,9 +371,6 @@
             <h1>💊 الصيدليات المناوبة</h1>
             <p class="subtitle">مدينة داريا</p>
             <div class="date" id="currentDate"></div>
-            <div class="visitor-count">
-                👁️ زوار اليوم: <span id="visitorCount">...</span>
-            </div>
         </div>
 
         <div class="today-card">
@@ -596,28 +596,11 @@
             return now;
         }
 
-        // 📊 عداد الزوار العام (نسخة محسنة 2026)
-        function updateVisitorCount() {
-            const namespace = 'pharmacy-daraia-yaser-new-2026';
-            const key = 'visits';
-            
-            fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
-                .then(res => res.json())
-                .then(data => {
-                    document.getElementById('visitorCount').textContent = data.value;
-                })
-                .catch(err => {
-                    document.getElementById('visitorCount').textContent = '1+';
-                    console.log('Counter error:', err);
-                });
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             setCurrentDate();
             showTodayDuty();
             populateDateSelect();
             renderFullSchedule();
-            updateVisitorCount();
         });
 
         function setCurrentDate() {
